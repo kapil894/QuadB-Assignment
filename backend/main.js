@@ -12,7 +12,7 @@ const port = 4000;
 app.use(bodyParser.json());
 app.use(cors());
 
-//connect to mongodb
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB', err));
@@ -62,15 +62,12 @@ app.patch('/tasks/:id', async (req, res) => {
 
 // Delete a task
 app.delete('/tasks/:id', async (req, res) => {
-  const { id } = req.params;
   try {
-    const task = await Task.findById(id);
-    if (!task) return res.status(404).json({ message: 'Task not found' });
-
-    await task.remove();
-    res.json({ message: 'Task deleted' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) return res.status(404).send();
+    res.send(task);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
