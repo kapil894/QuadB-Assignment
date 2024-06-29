@@ -76,7 +76,7 @@ const ProjectBoard = () => {
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-semibold mb-4 text-center underline mb-5">Project Board</h1>
+      <h1 className="text-3xl font-semibold mb-4 text-center underline mb-5">TO-DO List</h1>
       <hr className='mb-5' />
       <div className="flex flex-wrap justify-center">
         {Object.keys(tasks).map(status => (
